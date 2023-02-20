@@ -23,46 +23,27 @@
                <div class="slds-panel__body">
                   <template if:true={options}>
                      <div class="slds-form-element">
-                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"><b>Employment Type </b></label>
+                        <label class="slds-form-element__legend slds-form-element__label"
+                           style="font-size: medium;"><b>Employment Type </b></label>
                         <div class="slds-form-element__control">
                            <fieldset class="slds-form-element" style="font-size: 14px;">
                               <div class="slds-form-element__control">
-                                 <label class="slds-checkbox">
-                                    <input type="checkbox" name="age" value="Shift Work" />
-                                    <span class="slds-checkbox_faux"></span>
-                                    <span class="slds-form-element__label">Shift Work</span>
-                                 </label>
-                                 <label class="slds-checkbox">
-                                    <input type="checkbox" name="age" value="Permanent" />
-                                    <span class="slds-checkbox_faux"></span>
-                                    <span class="slds-form-element__label">Permanent</span>
-                                 </label>
-                                 <label class="slds-checkbox">
-                                    <input type="checkbox" name="age" value="Contract" />
-                                    <span class="slds-checkbox_faux"></span>
-                                    <span class="slds-form-element__label">Contract</span>
-                                 </label>
-                                 <label class="slds-checkbox">
-                                    <input type="checkbox" name="age" value="Retained" />
-                                    <span class="slds-checkbox_faux"></span>
-                                    <span class="slds-form-element__label">Retained</span>
-                                 </label>
-                                 <label class="slds-checkbox">
-                                    <input type="checkbox" name="age" value="Interim" />
-                                    <span class="slds-checkbox_faux"></span>
-                                    <span class="slds-form-element__label">Interim</span>
-                                 </label>
-                                 <label class="slds-checkbox">
-                                    <input type="checkbox" name="age" value="Requisition" />
-                                    <span class="slds-checkbox_faux"></span>
-                                    <span class="slds-form-element__label">Requisition</span>
-                                 </label>
+                                 <!-- Use a for loop to iterate through each option and create a checkbox for each option -->
+                                 <template for:each={options} for:item="option" for:index="index">
+                                    <label class="slds-checkbox" key={option.id}>
+                                       <input type="checkbox" name="employment-type" value={option.value}
+                                          onchange={handleOptionChange} checked={option.checked} />
+                                       <span class="slds-checkbox_faux"></span>
+                                       <span class="slds-form-element__label">{option.label}</span>
+                                    </label>
+                                 </template>
                               </div>
                            </fieldset>
                         </div>
                      </div>
                      <div class="slds-form-element">
-                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"><b>Age </b></label>
+                        <label class="slds-form-element__legend slds-form-element__label"
+                           style="font-size: medium;"><b>Age </b></label>
                         <div class="slds-form-element__control">
                            <fieldset class="slds-form-element" style="font-size: 14px;">
                               <div class="slds-form-element__control">
@@ -92,10 +73,11 @@
                      </div>
 
                      <div class="slds-form-element">
-                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"> <b>Location </b></label>
+                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;">
+                           <b>Location </b></label>
                         <div class="slds-form-element__control">
                            <fieldset class="slds-form-element" style="font-size: 14px;">
-                              <div class="slds-form-element__control" >
+                              <div class="slds-form-element__control">
                                  <label class="slds-checkbox">
                                     <input type="checkbox" name="age" value="North East and Yorkshire" />
                                     <span class="slds-checkbox_faux"></span>
@@ -143,7 +125,8 @@
                         </div>
                      </div> -->
                      <div class="slds-form-element">
-                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"><b> Expereience Type </b></label>
+                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"><b>
+                              Expereience Type </b></label>
                         <div class="slds-form-element__control">
                            <fieldset class="slds-form-element" style="font-size: 14px;">
                               <div class="slds-form-element__control">
@@ -161,12 +144,12 @@
                            </fieldset>
                         </div>
                      </div>
-                     
+
                   </template>
-                  
+
                   <button class="slds-col slds-button slds-button_brand btnCustomStyle"
-                        style="background-color: rgb(1, 145, 97) ; color: aliceblue; margin-top:3%; width: 100%; align-content:center;"
-                        onclick={applyToJob}>Filter</button>
+                     style="background-color: rgb(1, 145, 97) ; color: aliceblue; margin-top:3%; width: 100%; align-content:center;"
+                     onclick={applyToJob}>Filter</button>
                   <!-- </lightning-card> -->
                </div>
             </div>
