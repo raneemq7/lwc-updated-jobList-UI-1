@@ -1,124 +1,124 @@
 <!-- sldsValidatorIgnore -->
 <template>
   <template if:true={job}>
-    <div class="slds-grid slds-wrap slds-gutters">
+    <div class="slds-grid slds-wrap">
       <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12">
         <!-- <div class="slds-col slds-var-m-top_x-small"> -->
-          <lightning-card>
+        <lightning-card>
 
-            <h3 slot="title" style="color: blue; cursor: pointer;" onclick={navigateToJobDetailPage}>
-              <lightning-icon icon-name="standard:person_name" size="small"></lightning-icon>
-              &nbsp; {job.TR1__Job_Title__c}
-            </h3>
+          <div class="slds-grid slds-gutters">
 
-            <br>
+            <div class="slds-col slds-size_1-of-1">
 
-            <div class="slds-grid slds-gutters">
-              <div class="slds-col slds-size_1-of-2">
-                <p class="slds-var-p-horizontal_small slds-border_bottom">
-                  <lightning-icon icon-name="standard:stage" alternative-text="Application Status" variant="info"
-                    size="x-small"></lightning-icon>
-                  &nbsp;
-                  Application Status: &nbsp; <b> { job.TR1__Status__c } </b>
-                </p>
+              <h3 slot="title" style="color: blue; cursor: pointer; font-size: medium; margin-left:1.5%;" onclick={navigateToJobDetailPage} >
+                <lightning-icon icon-name="standard:person_name" size="small"></lightning-icon>
+                &nbsp; {job.TR1__Job_Title__c}
+              </h3>
+              <br>
+              <p class="slds-var-p-horizontal_small slds-border_bottom">
+                <lightning-icon icon-name="standard:stage" alternative-text="Application Status" variant="info"
+                  size="x-small"></lightning-icon>
+                &nbsp;
+                Application Status: &nbsp; <b> { job.TR1__Status__c } </b>
+              </p>
 
-                <p class="slds-var-p-horizontal_small slds-border_bottom">
-                  <lightning-icon icon-name="standard:event" alternative-text="Estimated Start Date" variant="info"
-                    size="x-small"></lightning-icon>
-                  &nbsp;
-                  Est. Start Date: &nbsp; <b> { job.TR1__Estimated_Start_Date__c } </b>
-                </p>
+              <p class="slds-var-p-horizontal_small slds-border_bottom">
+                <lightning-icon icon-name="standard:event" alternative-text="Estimated Start Date" variant="info"
+                  size="x-small"></lightning-icon>
+                &nbsp;
+                Est. Start Date: &nbsp; <b> { job.TR1__Estimated_Start_Date__c } </b>
+              </p>
 
-                <p class="slds-var-p-horizontal_small slds-border_bottom">
-                  <lightning-icon icon-name="standard:avatar" alternative-text="Experience type" variant="info"
-                    size="x-small"></lightning-icon>
-                  &nbsp;
-                  Experience type: &nbsp; <b> In person </b>
-                </p>
+              <p class="slds-var-p-horizontal_small slds-border_bottom">
+                <lightning-icon icon-name="standard:avatar" alternative-text="Experience type" variant="info"
+                  size="x-small"></lightning-icon>
+                &nbsp;
+                Experience type: &nbsp; <b> In person </b>
+              </p>
 
-                <p class="slds-var-p-horizontal_small slds-border_bottom">
-                  <lightning-icon icon-name="standard:location" alternative-text="Location" variant="info"
-                    size="x-small"></lightning-icon>
-                  &nbsp;
-                  Location: &nbsp; <!-- <b> {job.TR1__Account__r.BillingLatitude}</b> -->
-                </p>
+              <p class="slds-var-p-horizontal_small slds-border_bottom">
+                <lightning-icon icon-name="standard:location" alternative-text="Location" variant="info"
+                  size="x-small"></lightning-icon>
+                &nbsp;
+                Location: &nbsp; <!-- <b> {job.TR1__Account__r.BillingLatitude}</b> -->
+              </p>
 
-                <p class="slds-var-p-horizontal_small slds-border_bottom">
-                  <lightning-icon icon-name="standard:account" alternative-text="Info!" variant="info"
-                    size="x-small"></lightning-icon>
-                  &nbsp;
-                  Role: &nbsp; <b> { job.Name } </b>
-                </p>
+              <p class="slds-var-p-horizontal_small slds-border_bottom">
+                <lightning-icon icon-name="standard:account" alternative-text="Info!" variant="info"
+                  size="x-small"></lightning-icon>
+                &nbsp;
+                Role: &nbsp; <b> { job.Name } </b>
+              </p>
 
-                <p class="slds-var-p-horizontal_small slds-border_bottom">
-                  <lightning-icon icon-name="standard:team_member" alternative-text="Available Places" variant="info"
-                    size="x-small"></lightning-icon>
-                  &nbsp;
-                  Available places: &nbsp; <b> { job.TR1__Number_of_Openings__c} </b>
-                </p>
+              <p class="slds-var-p-horizontal_small slds-border_bottom">
+                <lightning-icon icon-name="standard:team_member" alternative-text="Available Places" variant="info"
+                  size="x-small"></lightning-icon>
+                &nbsp;
+                Available places: &nbsp; <b> { job.TR1__Number_of_Openings__c} </b>
+              </p>
 
-                <p class="slds-var-p-horizontal_small slds-border_bottom">
-                  <lightning-icon icon-name="standard:groups" alternative-text="Other Applications" variant="info"
-                    size="x-small"></lightning-icon>
-                  &nbsp;
-                  No. of Other Applications: &nbsp; <b> { job.Applications__c } </b>
-                </p>
-              </div>
-              <div>
+              <p class="slds-var-p-horizontal_small slds-border_bottom">
+                <lightning-icon icon-name="standard:groups" alternative-text="Other Applications" variant="info"
+                  size="x-small"></lightning-icon>
+                &nbsp;
+                No. of Other Applications: &nbsp; <b> { job.Applications__c } </b>
+              </p>
+            </div>
+            <div>
 
-                <!--Use template if:true to display/hide popup based on isModalOpen value-->
-                <template if:true={isModalOpen}>
-                  <!-- Modal/Popup Box LWC starts here -->
-                  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
-                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-                    <div class="slds-modal__container">
-                      <!-- Modal/Popup Box LWC header here -->
-                      <header class="slds-modal__header">
-                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
-                          title="Close" onclick={closeModal}>
-                          <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
-                            size="small"></lightning-icon>
-                          <span class="slds-assistive-text">Close</span>
-                        </button>
-                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Contact Me</h2>
-                      </header>
-                      <!-- Modal/Popup Box LWC body starts here -->
-                      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                        <p><b>Please enter your message for me below.</b></p>
-                        <div class="slds-form-element">
-                          <div class="slds-form-element__control">
-                            <textarea id="textarea-id-01" placeholder="Placeholder text…"
-                              class="slds-textarea"></textarea>
-                          </div>
+              <!--Use template if:true to display/hide popup based on isModalOpen value-->
+              <template if:true={isModalOpen}>
+                <!-- Modal/Popup Box LWC starts here -->
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                  aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                  <div class="slds-modal__container">
+                    <!-- Modal/Popup Box LWC header here -->
+                    <header class="slds-modal__header">
+                      <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                          size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                      </button>
+                      <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Contact Me</h2>
+                    </header>
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                      <p><b>Please enter your message for me below.</b></p>
+                      <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                          <textarea id="textarea-id-01" placeholder="Placeholder text…"
+                            class="slds-textarea"></textarea>
                         </div>
                       </div>
-                      <!-- Modal/Popup Box LWC footer starts here -->
-                      <footer class="slds-modal__footer">
-                        <button class="slds-button slds-button_neutral" onclick={closeModal}
-                          title="Cancel">Cancel</button>
-                        <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
-                      </footer>
                     </div>
-                  </section>
-                  <div class="slds-backdrop slds-backdrop_open"></div>
-                </template>
-              </div>
+                    <!-- Modal/Popup Box LWC footer starts here -->
+                    <footer class="slds-modal__footer">
+                      <button class="slds-button slds-button_neutral" onclick={closeModal}
+                        title="Cancel">Cancel</button>
+                      <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+                    </footer>
+                  </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+              </template>
             </div>
+          </div>
 
-            <template if:true={details}>
-              <br>
-              <div class="slds-var-m-left_x-small">
-                <lightning-layout>
-                  <lightning-layout-item>
-                    <lightning-record-form record-id={job.Id} object-api-name="TR1__Job__c" fields={Fields} columns="1"
-                      mode="readonly">
-                    </lightning-record-form>
-                  </lightning-layout-item>
-                </lightning-layout>
+          <template if:true={details}>
+            <br>
+            <div class="slds-var-m-left_x-small">
+              <lightning-layout>
+                <lightning-layout-item>
+                  <lightning-record-form record-id={job.Id} object-api-name="TR1__Job__c" fields={Fields} columns="1"
+                    mode="readonly">
+                  </lightning-record-form>
+                </lightning-layout-item>
+              </lightning-layout>
 
-              </div>
-            </template>
-          </lightning-card>
+            </div>
+          </template>
+        </lightning-card>
         <!-- </div> -->
       </div>
     </div>
