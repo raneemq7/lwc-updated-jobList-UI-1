@@ -10,10 +10,16 @@
 
             <div class="slds-col slds-size_1-of-1">
 
-              <h3 slot="title" style="color: blue; cursor: pointer; font-size: medium; margin-left:1.5%;" onclick={navigateToJobDetailPage} >
+              <!-- <h3 slot="title" style="color: blue; cursor: pointer; font-size: medium; margin-left:1.5%;" onclick={navigateToJobDetailPage} >
                 <lightning-icon icon-name="standard:person_name" size="small"></lightning-icon>
                 &nbsp; {job.TR1__Job_Title__c}
-              </h3>
+              </h3> -->
+              <a href="https://healthcarepilot.my.site.com/candidate/s/job-detail-page">
+              <h3 slot="title" style="color: blue; cursor: pointer; font-size: medium; margin-left:1.5%;">
+                <lightning-icon icon-name="standard:person_name" size="small"></lightning-icon>
+                &nbsp; {job.TR1__Job_Title__c}
+              </h3> 
+              </a>
               <br>
               <p class="slds-var-p-horizontal_small slds-border_bottom">
                 <lightning-icon icon-name="standard:stage" alternative-text="Application Status" variant="info"
