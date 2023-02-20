@@ -1,29 +1,43 @@
 import { LightningElement, wire, api, track } from 'lwc';
-import getApps from '@salesforce/apex/getApplicationsCandidateId.getApplications';
+import { NavigationMixin } from 'lightning/navigation';
+// Local Apex Imports
 import getsObjectDetails from '@salesforce/apex/getJobsClientParam.getJobs';
 import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
 
-import STAGE from '@salesforce/schema/TR1__Job__c.Job_Stage_Text__c';
+import ageRanges from '@salesforce/schema/TR1__Job__c.Age_Range__c';
+// Generic Salesforce imports
+
 import JOB_OBJECT from '@salesforce/schema/TR1__Job__c';
 
-export default class AppsContainer extends LightningElement {
+export default class AppsContainer extends NavigationMixin(LightningElement) {
     @api recordId;
+    @api jobDetailPageAPIName;
     @api jobs;
     @api NumberOfRecords = 5;
     @api applications;
     @api selectedItem;
-    @api options;
+    // @api options;
 
-    @track recordTypeId = '0125g000000MzwFAAS';
+    @track recordTypeId = '001Dn00000GfP6AIAV';
     @track selectedValue = '';
-    @track selectedStage = '';
+    // @track selectedStage = '';
     @track selectedFunctionValue = '';
     @track selectedLocationValue = '';
+    // @track selectedAgeValue = '';
     @track applied = false;
     @track finished = false;
     @track uniqArray = [];
     @track functionOptions = [];
     @track locationOptions = [];
+    @track options = [];
+
+    @track openPanel = true;
+ 
+
+
+    connectedCallback() {
+        this.jobDetailPageAPIName = (this.jobDetailPageAPIName ? this.jobDetailPageAPIName : "jobdetail_page__c")
+    }
 
     // @wire(getApps, { recordId: '$recordId' })
     // appData({data, error}) {
@@ -87,29 +101,48 @@ export default class AppsContainer extends LightningElement {
 
     handleTileClick(evt) {
         console.log(`This is the evt: `, JSON.stringify(evt.detail));
-        this.applied = true;
+        //this.applied = true;
         this.finished = false;
         this.selectedItem =  JSON.parse(JSON.stringify(evt.detail));
         if(evt.detail.Id) {
             this.app_ID = evt.detail.Id;
+            this.navigateToJobDetailPage(this.app_ID);
         }
     }
 
+    navigateToJobDetailPage(jobId) {
+        console.log(`I'm firing`);
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: this.jobDetailPageAPIName
+            },
+            state: {
+                recordId: jobId
+            }
+        });
+    }
+
     handleChange(event) {
-        this.selectedValue = event.detail.value;
+        console.log('The selected value is', event.detail.value)
+        this.selectedValue = event.detail.value[0];
     }
 
     handleFunctionChange(event) {
         this.selectedFunctionValue = event.detail.value;
     }
 
+    // handleAgeChange(event) {
+    //     this.selectedAgeValue = event.detail.value;
+    // }
+
     handleLocationChange(event) {
         this.selectedLocationValue = event.detail.value;
     }
 
-    handleStageChange(event) {
-        this.selectedStage = event.detail.value;
-    }
+    // handleStageChange(event) {
+    //     this.selectedStage = event.detail.value;
+    // }
 
     closeModal() {
         // to close modal set isModalOpen tarck value as false
@@ -117,6 +150,11 @@ export default class AppsContainer extends LightningElement {
         this.applied = false;
         this.finished = false;
     }
+
+    closePanel(){
+        this.openPanel = false;
+    }
+
 
     // Change Handlers.
     nameChangedHandler(event){
@@ -151,6 +189,24 @@ export default class AppsContainer extends LightningElement {
         }
     }
 
+    // createAgeRangeList(array) {
+    //     let newArray = array.map(x => {
+    //         return x.Age_Ranges__c
+    //     });
+    //     if (newArray) {
+    //         let uniqArray = [...new Set(newArray)];
+    //         let _ageOptions = [];
+    //         for(let i = 0; i < uniqArray.length; i++) {
+    //             _ageOptions.push({
+    //                 label: uniqArray[i],
+    //                 value: uniqArray[i]
+    //             });
+    //         }
+    //         this.ageOptions = _ageOptions;
+    //         console.log(`Age Options ==> `, JSON.stringify(this.ageOptions));
+    //     }
+    // }
+
     createLocationList(array) {
         let newArray = array.map(x => {
             return x.TR1__City__c;
@@ -168,4 +224,28 @@ export default class AppsContainer extends LightningElement {
             console.log(`Location Options ==> `, JSON.stringify(this.locationOptions));
         }
     }
+
+    // createLocationList(array) {
+    //     let newArray = array.map(x => {
+    //       return {
+    //         city: x.TR1__City__c,
+    //         state: x.TR1__State__c,
+    //         country: x.TR1__Country__c
+    //       };
+    //     });
+    //     if (newArray) {
+    //       let uniqArray = [...new Set(newArray)];
+    //       let _locationOptions = [];
+    //       for (let i = 0; i < uniqArray.length; i++) {
+    //         _locationOptions.push({
+    //           label: `${uniqArray[i].city}, ${uniqArray[i].state}, ${uniqArray[i].country}`,
+    //           value: uniqArray[i]
+    //         });
+    //       }
+    //       this.locationOptions = _locationOptions;
+    //       console.log(`Location Options ==> `, JSON.stringify(this.locationOptions));
+    //     }
+    //   }
+      
+
 }

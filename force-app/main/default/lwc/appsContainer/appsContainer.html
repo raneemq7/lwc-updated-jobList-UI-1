@@ -1,324 +1,265 @@
 <template>
-    <template if:true={jobs}>
-        <template if:true={options}>
-            <div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
-                <lightning-layout>
-                    <lightning-layout-item padding="around-small">
-                        <div class="slds-form-element">
-                            <div class="slds-form-element__control">
-                                <lightning-combobox name="recordTypes"
-                                                    label="Employment Type"
-                                                    value={selectedValue}
-                                                    placeholder="-Select-"
-                                                    options={options}
-                                                    onchange={handleChange}>
-                                </lightning-combobox>
-                            </div>
+   <template if:true={jobs}>
+
+      <div class="slds-grid slds-wrap slds-gutters">
+
+         <!-- <lightning-layout> -->
+         <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
+            <div class="slds-panel slds-size_small slds-panel_docked slds-panel_docked-left slds-is-open"
+               aria-hidden="false">
+               <div class="slds-panel__header">
+                  <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="Panel Header">Filter
+                     Results</h2>
+                  <div class="slds-panel__header-actions" style="color: black;">
+                     <button class="slds-button slds-button_icon slds-button_icon-small slds-panel__close"
+                        title="Collapse Panel Header" onclick={closePanel}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                           size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Collapse Filter Results</span>
+                     </button>
+                  </div>
+               </div>
+               <!-- <lightning-card style="width: 30px;"> -->
+               <div class="slds-panel__body">
+                  <template if:true={options}>
+                     <div class="slds-form-element">
+                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"><b>Employment Type </b></label>
+                        <div class="slds-form-element__control">
+                           <fieldset class="slds-form-element" style="font-size: 14px;">
+                              <div class="slds-form-element__control">
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="Shift Work" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Shift Work</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="Permanent" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Permanent</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="Contract" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Contract</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="Retained" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Retained</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="Interim" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Interim</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="Requisition" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Requisition</span>
+                                 </label>
+                              </div>
+                           </fieldset>
                         </div>
-                    </lightning-layout-item>
-                    <lightning-layout-item padding="around-small">
-                        <div class="slds-form-element">
-                            <div class="slds-form-element__control">
-                                <lightning-combobox name="function"
-                                                    label="Job Function"
-                                                    value={selectedFunctionValue}
-                                                    placeholder="-Select-"
-                                                    options={functionOptions}
-                                                    onchange={handleFunctionChange}>
-                                </lightning-combobox>
-                            </div>
+                     </div>
+                     <div class="slds-form-element">
+                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"><b>Age </b></label>
+                        <div class="slds-form-element__control">
+                           <fieldset class="slds-form-element" style="font-size: 14px;">
+                              <div class="slds-form-element__control">
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="12-14" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">12-14</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="14-16" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">14-16</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="16-18" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">16-18</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="18+" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">18+</span>
+                                 </label>
+                              </div>
+                           </fieldset>
                         </div>
-                    </lightning-layout-item>
-                    <lightning-layout-item padding="around-small">
-                        <div class="slds-form-element">
-                            <div class="slds-form-element__control">
-                                <lightning-combobox name="location"
-                                                    label="Location"
-                                                    value={selectedLocationValue}
-                                                    placeholder="-Select-"
-                                                    options={locationOptions}
-                                                    onchange={handleLocationChange}>
-                                </lightning-combobox>
-                            </div>
+                     </div>
+
+                     <div class="slds-form-element">
+                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"> <b>Location </b></label>
+                        <div class="slds-form-element__control">
+                           <fieldset class="slds-form-element" style="font-size: 14px;">
+                              <div class="slds-form-element__control" >
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="North East and Yorkshire" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">North East and Yorkshire</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="East of England" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">East of England</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="London" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">London</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="Midlands" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Midlands</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="North West" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">North West</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="South East" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">South East</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="age" value="South West" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">South West</span>
+                                 </label>
+                              </div>
+                           </fieldset>
                         </div>
-                    </lightning-layout-item>
-                    <lightning-layout-item padding="around-small">
-                        <!-- <div class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click slds-is-closed">
-                            <label class="slds-form-element__label" for="date-input-id-default">Start Date</label>
-                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
-                               <input type="text" id="date-input-id-default" placeholder=" " class="slds-input" />
-                               <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Select a date">
-                                  <svg class="slds-button__icon" aria-hidden="true">
-                                     <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#event"></use>
-                                  </svg>
-                                  <span class="slds-assistive-text">Select a date</span>
-                               </button>
-                            </div>
-                            <div aria-hidden="false" aria-label="Date picker: June" class="slds-datepicker slds-dropdown slds-dropdown_left" role="dialog">
-                               <div class="slds-datepicker__filter slds-grid">
-                                  <div class="slds-datepicker__filter_month slds-grid slds-grid_align-spread slds-grow">
-                                     <div class="slds-align-middle">
-                                        <button class="slds-button slds-button_icon slds-button_icon-container" title="Previous Month">
-                                           <svg class="slds-button__icon" aria-hidden="true">
-                                              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#left"></use>
-                                           </svg>
-                                           <span class="slds-assistive-text">Previous Month</span>
-                                        </button>
-                                     </div>
-                                     <h2 aria-atomic="true" aria-live="assertive" class="slds-align-middle" id="defaultPicker-month">June</h2>
-                                     <div class="slds-align-middle">
-                                        <button class="slds-button slds-button_icon slds-button_icon-container" title="Next Month">
-                                           <svg class="slds-button__icon" aria-hidden="true">
-                                              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#right"></use>
-                                           </svg>
-                                           <span class="slds-assistive-text">Next Month</span>
-                                        </button>
-                                     </div>
-                                  </div>
-                                  <div class="slds-shrink-none">
-                                     <label class="slds-assistive-text" for="defaultPicker_select">Pick a Year</label>
-                                     <div class="slds-select_container">
-                                        <select class="slds-select" id="defaultPicker_select">
-                                           <option>2021</option>
-                                           <option>2022</option>
-                                           <option>2023</option>
-                                        </select>
-                                     </div>
-                                  </div>
-                               </div>
-                               <table aria-labelledby="defaultPicker-month" aria-multiselectable="true" class="slds-datepicker__month" role="grid">
-                                  <thead>
-                                     <tr id="defaultPicker-weekdays">
-                                        <th id="defaultPicker-Sunday" scope="col">
-                                           <abbr title="Sunday">Sun</abbr>
-                                        </th>
-                                        <th id="defaultPicker-Monday" scope="col">
-                                           <abbr title="Monday">Mon</abbr>
-                                        </th>
-                                        <th id="defaultPicker-Tuesday" scope="col">
-                                           <abbr title="Tuesday">Tue</abbr>
-                                        </th>
-                                        <th id="defaultPicker-Wednesday" scope="col">
-                                           <abbr title="Wednesday">Wed</abbr>
-                                        </th>
-                                        <th id="defaultPicker-Thursday" scope="col">
-                                           <abbr title="Thursday">Thu</abbr>
-                                        </th>
-                                        <th id="defaultPicker-Friday" scope="col">
-                                           <abbr title="Friday">Fri</abbr>
-                                        </th>
-                                        <th id="defaultPicker-Saturday" scope="col">
-                                           <abbr title="Saturday">Sat</abbr>
-                                        </th>
-                                     </tr>
-                                  </thead>
-                                  <tbody>
-                                     <tr>
-                                        <td aria-selected="false" class="slds-day_adjacent-month" role="gridcell" aria-label="31 May 2020">
-                                           <span class="slds-day">31</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" tabindex="0" aria-label="1 June 2020">
-                                           <span class="slds-day">1</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="2 June 2020">
-                                           <span class="slds-day">2</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="3 June 2020">
-                                           <span class="slds-day">3</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="4 June 2020">
-                                           <span class="slds-day">4</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="5 June 2020">
-                                           <span class="slds-day">5</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="6 June 2020">
-                                           <span class="slds-day">6</span>
-                                        </td>
-                                     </tr>
-                                     <tr>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="7 June 2020">
-                                           <span class="slds-day">7</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="8 June 2020">
-                                           <span class="slds-day">8</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="9 June 2020">
-                                           <span class="slds-day">9</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="10 June 2020">
-                                           <span class="slds-day">10</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="11 June 2020">
-                                           <span class="slds-day">11</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="12 June 2020">
-                                           <span class="slds-day">12</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="13 June 2020">
-                                           <span class="slds-day">13</span>
-                                        </td>
-                                     </tr>
-                                     <tr>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="14 June 2020">
-                                           <span class="slds-day">14</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="15 June 2020">
-                                           <span class="slds-day">15</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="16 June 2020">
-                                           <span class="slds-day">16</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="17 June 2020">
-                                           <span class="slds-day">17</span>
-                                        </td>
-                                        <td aria-selected="false" aria-current="date" class="slds-is-today" role="gridcell" aria-label="18 June 2020">
-                                           <span class="slds-day">18</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="19 June 2020">
-                                           <span class="slds-day">19</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="20 June 2020">
-                                           <span class="slds-day">20</span>
-                                        </td>
-                                     </tr>
-                                     <tr class="">
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="21 June 2020">
-                                           <span class="slds-day">21</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="22 June 2020">
-                                           <span class="slds-day">22</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="23 June 2020">
-                                           <span class="slds-day">23</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="24 June 2020">
-                                           <span class="slds-day">24</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="25 June 2020">
-                                           <span class="slds-day">25</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="26 June 2020">
-                                           <span class="slds-day">26</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="27 June 2020">
-                                           <span class="slds-day">27</span>
-                                        </td>
-                                     </tr>
-                                     <tr class="">
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="28 June 2020">
-                                           <span class="slds-day">28</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="29 June 2020">
-                                           <span class="slds-day">29</span>
-                                        </td>
-                                        <td aria-selected="false" class="" role="gridcell" aria-label="30 June 2020">
-                                           <span class="slds-day">30</span>
-                                        </td>
-                                        <td aria-selected="false" class="slds-day_adjacent-month" role="gridcell" aria-label="1 July 2020">
-                                           <span class="slds-day">1</span>
-                                        </td>
-                                        <td aria-selected="false" class="slds-day_adjacent-month" role="gridcell" aria-label="2 July 2020">
-                                           <span class="slds-day">2</span>
-                                        </td>
-                                        <td aria-selected="false" class="slds-day_adjacent-month" role="gridcell" aria-label="3 July 2020">
-                                           <span class="slds-day">3</span>
-                                        </td>
-                                        <td aria-selected="false" class="slds-day_adjacent-month" role="gridcell" aria-label="4 July 2020">
-                                           <span class="slds-day">4</span>
-                                        </td>
-                                     </tr>
-                                  </tbody>
-                               </table>
-                               <button class="slds-button slds-align_absolute-center slds-text-link">Today</button>
-                            </div>
-                         </div> -->
-                        <div class="slds-datepicker">
-                            <lightning-input type="datetime"></lightning-input>
+                     </div>
+                     <!-- <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                           <lightning-combobox name="location" label="Location" value={selectedLocationValue}
+                              placeholder="-Select-" options={locationOptions} onchange={handleLocationChange}>
+                           </lightning-combobox>
                         </div>
-                    </lightning-layout-item>
-                </lightning-layout>
+                     </div> -->
+                     <div class="slds-form-element">
+                        <label class="slds-form-element__legend slds-form-element__label" style="font-size: medium;"><b> Expereience Type </b></label>
+                        <div class="slds-form-element__control">
+                           <fieldset class="slds-form-element" style="font-size: 14px;">
+                              <div class="slds-form-element__control">
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="expereince" value="In_Person" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">In Person</span>
+                                 </label>
+                                 <label class="slds-checkbox">
+                                    <input type="checkbox" name="expereince" value="Online" />
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">Online</span>
+                                 </label>
+                              </div>
+                           </fieldset>
+                        </div>
+                     </div>
+                     
+                  </template>
+                  
+                  <button class="slds-col slds-button slds-button_brand btnCustomStyle"
+                        style="background-color: rgb(1, 145, 97) ; color: aliceblue; margin-top:3%; width: 100%; align-content:center;"
+                        onclick={applyToJob}>Filter</button>
+                  <!-- </lightning-card> -->
+               </div>
             </div>
-        </template>
-        <div class="slds-grid slds-grid_vertical slds-gutters">
-            <template for:each={jobs} for:item="job">
-                <c-app-tile 
-                    key={job.Id} 
-                    job={job}
-                    ontileclick={handleTileClick}>
-                </c-app-tile>
-            </template>
-        </div>
+         </div>
+         <div class="slds-col slds-size_1-of-1 slds-large-size_9-of-12">
+            <div class="slds-grid slds-grid_vertical">
+               <template for:each={jobs} for:item="job">
+                  <c-app-tile key={job.Id} job={job} jobdetailpageapiname={jobDetailPageAPIName}
+                     ontileclick={handleTileClick}>
+                  </c-app-tile>
+               </template>
+            </div>
+         </div>
+         <!-- </lightning-layout> -->
 
-        <template if:true={applied}>
-            <!-- Modal/Popup Box LWC starts here -->
-            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-                <div class="slds-modal__container">
-                    <!-- Modal/Popup Box LWC header here -->
-                    <header class="slds-modal__header">
-                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
-                            <lightning-icon icon-name="utility:close"
-                                alternative-text="close"
-                                variant="inverse"
-                                size="small" ></lightning-icon>
-                            <span class="slds-assistive-text">Close</span>
-                        </button>
-                        <template if:false={finished}>
-                          <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Your Details</h2>
-                        </template>
-                        <template if:true={finished}>
-                          <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Successfully Applied</h2>
-                        </template>
-                    </header>
-                    <!-- Modal/Popup Box LWC body starts here -->
-                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-02">
-                      <div class="slds-align_absolute-center">
-                        <template if:false={finished}>
-                            <div class="slds-grid slds-gutters">
-                                <div class="slds-col slds-size_1-of-2">
-                                    <lightning-layout>
-                                        <lightning-layout-item>
-                                            <!-- Displaying fields to get information. -->
-                                            <lightning-input class="slds-p-around_medium" label="Applicant Name" name="TR1__Applicant__c" 
-                                                onchange={nameChangedHandler} value=""></lightning-input>
-                                            <lightning-input class="slds-p-around_medium" label="Applicant ID" name="TR1__Applicant__c" 
-                                                onchange={numberChangedHandler} value=""></lightning-input>
-                                            <lightning-input class="slds-p-around_medium" label="Application Stage" type="Stage" name="	TR1__Stage__c" 
-                                                onchange={phoneChangedHandler} value="Shortlist"></lightning-input>
-                                            <br/>
-                                        </lightning-layout-item>
-                                    </lightning-layout>
-                                </div>
-                                <div class="slds-col slds-size_1-of-2">
-                                    <lightning-layout>
-                                        <lightning-layout-item>
-                                            <!-- Displaying fields to get information. -->
-                                            <lightning-input class="slds-p-around_medium" label="Date Available" name="Date Available" 
-                                                onchange={nameChangedHandler} value=""></lightning-input>
-                                            <lightning-input class="slds-p-around_medium" label="Compliance Status" name="Compliance Status" 
-                                                onchange={numberChangedHandler} value=""></lightning-input>
-                                            <lightning-input class="slds-p-around_medium" label="Address" type="Adress" name="Address" 
-                                                onchange={phoneChangedHandler} value=""></lightning-input>
-                                            <br/>
-                                        </lightning-layout-item>
-                                    </lightning-layout>
-                                </div>
-                            </div>
-                        </template>
-                        <template if:true={finished}>
-                          <img src="https://i.imgur.com/OkKn31A.png" alt="Success Tick">
-                        </template>
-                      </div>
-                    </div>
-                    <!-- Modal/Popup Box LWC footer starts here -->
-                    <footer class="slds-modal__footer">
-                        <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Close</button>
-                        <button class="slds-button slds-button_brand" onclick={appliedToJob} title="Apply">Apply</button>
-                    </footer>
-                </div>
-            </section>
-            <div class="slds-backdrop slds-backdrop_open"></div>
-          </template>
+      </div>
 
-    </template>
+
+
+      <template if:true={applied}>
+         <!-- Modal/Popup Box LWC starts here -->
+         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+               <!-- Modal/Popup Box LWC header here -->
+               <header class="slds-modal__header">
+                  <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                     onclick={closeModal}>
+                     <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                        size="small"></lightning-icon>
+                     <span class="slds-assistive-text">Close</span>
+                  </button>
+                  <template if:false={finished}>
+                     <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Your Details</h2>
+                  </template>
+                  <template if:true={finished}>
+                     <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Successfully Applied
+                     </h2>
+                  </template>
+               </header>
+               <!-- Modal/Popup Box LWC body starts here -->
+               <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-02">
+                  <div class="slds-align_absolute-center">
+                     <template if:false={finished}>
+                        <div class="slds-grid slds-gutters">
+                           <div class="slds-col slds-size_1-of-2">
+                              <lightning-layout>
+                                 <lightning-layout-item>
+                                    <!-- Displaying fields to get information. -->
+                                    <lightning-input class="slds-p-around_medium" label="Applicant Name"
+                                       name="TR1__Applicant__c" onchange={nameChangedHandler}
+                                       value=""></lightning-input>
+                                    <lightning-input class="slds-p-around_medium" label="Applicant ID"
+                                       name="TR1__Applicant__c" onchange={numberChangedHandler}
+                                       value=""></lightning-input>
+                                    <lightning-input class="slds-p-around_medium" label="Application Stage" type="Stage"
+                                       name="	TR1__Stage__c" onchange={phoneChangedHandler}
+                                       value="Shortlist"></lightning-input>
+                                    <br />
+                                 </lightning-layout-item>
+                              </lightning-layout>
+                           </div>
+                           <div class="slds-col slds-size_1-of-2">
+                              <lightning-layout>
+                                 <lightning-layout-item>
+                                    <!-- Displaying fields to get information. -->
+                                    <lightning-input class="slds-p-around_medium" label="Date Available"
+                                       name="Date Available" onchange={nameChangedHandler} value=""></lightning-input>
+                                    <lightning-input class="slds-p-around_medium" label="Compliance Status"
+                                       name="Compliance Status" onchange={numberChangedHandler}
+                                       value=""></lightning-input>
+                                    <lightning-input class="slds-p-around_medium" label="Address" type="Adress"
+                                       name="Address" onchange={phoneChangedHandler} value=""></lightning-input>
+                                    <br />
+                                 </lightning-layout-item>
+                              </lightning-layout>
+                           </div>
+                        </div>
+                     </template>
+                     <template if:true={finished}>
+                        <img src="https://i.imgur.com/OkKn31A.png" alt="Success Tick">
+                     </template>
+                  </div>
+               </div>
+               <!-- Modal/Popup Box LWC footer starts here -->
+               <footer class="slds-modal__footer">
+                  <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Close</button>
+                  <button class="slds-button slds-button_brand" onclick={appliedToJob} title="Apply Now">Apply
+                     Now</button>
+               </footer>
+            </div>
+         </section>
+         <div class="slds-backdrop slds-backdrop_open"></div>
+      </template>
+   </template>
 </template>

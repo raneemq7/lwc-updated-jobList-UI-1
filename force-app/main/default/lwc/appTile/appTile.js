@@ -3,12 +3,14 @@ import { getRecord } from 'lightning/uiRecordApi';
 import RECORDTYPEID from '@salesforce/schema/TR1__Job__c.RecordTypeId';
 import getUsers from '@salesforce/apex/getUserDetails.getUsers';
 import getPortalUserDetails from '@salesforce/apex/getPortalUserDetails.getUsers';
-import JOB_DESC from '@salesforce/schema/TR1__Job__c.TR1__Client_Job_Description__c'
+import JOB_DESC from '@salesforce/schema/TR1__Job__c.TR1__Client_Job_Description__c';
+import {NavigationMixin} from "lightning/navigation";
 
 const _FIELDS = [RECORDTYPEID];
 
-export default class AppTile extends LightningElement {
+export default class AppTile extends NavigationMixin(LightningElement) {
     @api job
+    @api jobdetailpageapiname;
     @api recordTypeName;
     @api details = false;
     @track record;
@@ -16,8 +18,10 @@ export default class AppTile extends LightningElement {
     @track currentStep = "1";
     @track fullPhotoUrl;
     @track isModalOpen = false;
-    @track mapMarkers;
-    @track zoomLevel = 10;
+    // @track mapMarkers;
+    // @track zoomLevel = 10;
+    @track _mostAdvancedStage;
+    stageObject = {'Internal Interview': '1', 'Application': '1', 'Screening': '2', 'Preonboarding': '2', 'Submittal': '3', 'Send Out': '3', 'Onboarding': '4', 'TR1__ATSv2_Offer': '4', 'Closing Report': '5', 'default': '1'};
 
     Fields = [JOB_DESC];
 
@@ -27,12 +31,14 @@ export default class AppTile extends LightningElement {
     }
 
     closeModal() {
-        // to close modal set isModalOpen tarck value as false
+        // to close modal set isModalOpen track value as false
         this.isModalOpen = false;
     }
 
     connectedCallback() {
         if(this.job) {
+            this._mostAdvancedStage = (this.job.TR1__Most_Advanced_Stage__c ? this.job.TR1__Most_Advanced_Stage__c : this.job.TR1__Stage__c);
+            console.log(`Most Advanced Stage: `, this._mostAdvancedStage);
             this.mapMarkers = [
                 {
                     location: {
@@ -41,18 +47,16 @@ export default class AppTile extends LightningElement {
                     },
                 },
             ];
-            switch(this.job.TR1__Stage__c) {
-                case "Send Out":
-                    this.currentStep = "1"
-                    break;
-                case "Application":
-                    this.currentStep = "2"
-                    break;
-                case "Closing Report":
-                    this.currentStep = "5"
-                    break;
+            if(this._mostAdvancedStage) {
+                this.currentStep = this.getStep(this._mostAdvancedStage);
+                console.log(`Current Step: `, this.currentStep);
             }
         }
+    }
+
+    getStep(stage) {
+        const stages = this.stageObject;
+        return (stages[stage || stages['default']]);
     }
 
     @wire(getRecord, { recordId: '$job.Id', fields: _FIELDS })
@@ -129,5 +133,28 @@ export default class AppTile extends LightningElement {
         } else {
             this.details = true;
         }
+    }
+
+    navigateToInternalPage() {
+        // Use the basePath from the Summer '20 module to construct the URL
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: 'applicationsList__c'
+            }
+        });
+    }
+
+    navigateToJobDetailPage() {
+        console.log(`I'm firing`);
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: this.jobdetailpageapiname
+            },
+            state: {
+                recordId: this.job.Id
+            }
+        });
     }
 }

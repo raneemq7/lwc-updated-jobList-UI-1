@@ -19,6 +19,7 @@
             <property name="recordId" default="" type="String" 
                 label="Client ID" description="The value should be {!recordId}."/>
             <property name="NumberOfRecords" label="Number of records to return" type="Integer" />
+            <property name="jobDetailPageAPIName" label="Job Detail Page API Name" type="String" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
