@@ -32,7 +32,7 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
     @track options = [];
 
     @track openPanel = true;
- 
+
 
 
     connectedCallback() {
@@ -49,15 +49,15 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
     //     }
     // }
 
-    @wire(getsObjectDetails, { recordId: '$recordId', recordType: '$selectedValue', limitNo: '$NumberOfRecords' })
-    recordObjectData({data, error}) {
-        if(data){
+    @wire(getsObjectDetails, { recordId: '$recordId', recordType: '$selectedOptions', limitNo: '$NumberOfRecords' })
+    recordObjectData({ data, error }) {
+        if (data) {
             console.log(`data retured from apex class: `, data);
             this.jobs = data;
-            this.createFunctionList(this.jobs);
-            this.createLocationList(this.jobs);
-        } else if(error) {
-            window.console.log('Error ===> '+ JSON.stringify(error));
+            // this.createFunctionList(this.jobs);
+            // this.createLocationList(this.jobs);
+        } else if (error) {
+            window.console.log('Error ===> ' + JSON.stringify(error));
         }
     }
 
@@ -72,8 +72,8 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
     // }
 
     @wire(getObjectInfo, { objectApiName: JOB_OBJECT })
-    accObjectInfo({data, error}) {
-        if(data) {
+    accObjectInfo({ data, error }) {
+        if (data) {
             console.log(`Value of data2 ==> `, data);
             let optionsValues = [];
             // map of record type Info
@@ -82,8 +82,8 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
             // getting map values
             let rtValues = Object.values(rtInfos);
 
-            for(let i = 0; i < rtValues.length; i++) {
-                if(rtValues[i].name !== 'Master') {
+            for (let i = 0; i < rtValues.length; i++) {
+                if (rtValues[i].name !== 'Master') {
                     optionsValues.push({
                         label: rtValues[i].name,
                         value: rtValues[i].recordTypeId
@@ -94,8 +94,8 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
             this.options = optionsValues;
             console.log(`Options Values ==> `, this.options);
         }
-        else if(error) {
-            window.console.log('Error ===> '+ JSON.stringify(error));
+        else if (error) {
+            window.console.log('Error ===> ' + JSON.stringify(error));
         }
     }
 
@@ -103,8 +103,8 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
         console.log(`This is the evt: `, JSON.stringify(evt.detail));
         //this.applied = true;
         this.finished = false;
-        this.selectedItem =  JSON.parse(JSON.stringify(evt.detail));
-        if(evt.detail.Id) {
+        this.selectedItem = JSON.parse(JSON.stringify(evt.detail));
+        if (evt.detail.Id) {
             this.app_ID = evt.detail.Id;
             this.navigateToJobDetailPage(this.app_ID);
         }
@@ -151,19 +151,19 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
         this.finished = false;
     }
 
-    closePanel(){
+    closePanel() {
         this.openPanel = false;
     }
 
 
     // Change Handlers.
-    nameChangedHandler(event){
+    nameChangedHandler(event) {
         this.strName = event.target.value;
     }
-    numberChangedHandler(event){
+    numberChangedHandler(event) {
         this.strAccountNumber = event.target.value;
     }
-    phoneChangedHandler(event){
+    phoneChangedHandler(event) {
         this.strPhone = event.target.value;
     }
 
@@ -171,23 +171,23 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
         this.finished = true;
     }
 
-    createFunctionList(array) {
-        let newArray = array.map(x => {
-            return x.TR1__Division__c
-        });
-        if(newArray) {
-            this.uniqArray = [...new Set(newArray)];
-            let _functionOptions = [];
-            for(let i = 0; i < this.uniqArray.length; i++) {
-                _functionOptions.push({
-                    label: this.uniqArray[i],
-                    value: this.uniqArray[i]
-                });
-            }
-            this.functionOptions = _functionOptions;
-            console.log(`Function Options ==> `, JSON.stringify(this.functionOptions));
-        }
-    }
+    // createFunctionList(array) {
+    //     let newArray = array.map(x => {
+    //         return x.TR1__Division__c
+    //     });
+    //     if (newArray) {
+    //         this.uniqArray = [...new Set(newArray)];
+    //         let _functionOptions = [];
+    //         for (let i = 0; i < this.uniqArray.length; i++) {
+    //             _functionOptions.push({
+    //                 label: this.uniqArray[i],
+    //                 value: this.uniqArray[i]
+    //             });
+    //         }
+    //         this.functionOptions = _functionOptions;
+    //         console.log(`Function Options ==> `, JSON.stringify(this.functionOptions));
+    //     }
+    // }
 
     // createAgeRangeList(array) {
     //     let newArray = array.map(x => {
@@ -207,23 +207,23 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
     //     }
     // }
 
-    createLocationList(array) {
-        let newArray = array.map(x => {
-            return x.TR1__City__c;
-        });
-        if(newArray) {
-            let uniqArray = [...new Set(newArray)];
-            let _locationOptions = [];
-            for(let i = 0; i < uniqArray.length; i++) {
-                _locationOptions.push({
-                    label: uniqArray[i],
-                    value: uniqArray[i]
-                });
-            }
-            this.locationOptions = _locationOptions;
-            console.log(`Location Options ==> `, JSON.stringify(this.locationOptions));
-        }
-    }
+    // createLocationList(array) {
+    //     let newArray = array.map(x => {
+    //         return x.TR1__City__c;
+    //     });
+    //     if (newArray) {
+    //         let uniqArray = [...new Set(newArray)];
+    //         let _locationOptions = [];
+    //         for (let i = 0; i < uniqArray.length; i++) {
+    //             _locationOptions.push({
+    //                 label: uniqArray[i],
+    //                 value: uniqArray[i]
+    //             });
+    //         }
+    //         this.locationOptions = _locationOptions;
+    //         console.log(`Location Options ==> `, JSON.stringify(this.locationOptions));
+    //     }
+    // }
 
     // createLocationList(array) {
     //     let newArray = array.map(x => {
@@ -246,6 +246,38 @@ export default class AppsContainer extends NavigationMixin(LightningElement) {
     //       console.log(`Location Options ==> `, JSON.stringify(this.locationOptions));
     //     }
     //   }
-      
+
+    @track selectedOptions = '';
+
+    handleOptionChange(event) {
+        const checked = event.target.checked;
+        const value = event.target.value;
+
+        if (checked) {
+            // Add the selected option to the array
+            //   this.selectedOptions.push(value);
+            this.selectedOptions = event.target.value;
+            console.log("selected option is ", event.target.value);
+        } else {
+            // Remove the selected option from the array
+            this.selectedOptions = this.selectedOptions.filter(option => option !== value);
+        }
+
+        // Call a function to update the view based on the selected options
+        // this.updateView();
+       
+    }
+
+    // @wire(getsObjectDetails, { recordId: '$recordId', recordType: '$selectedOptions', limitNo: '$NumberOfRecords' })
+    // updateView({ data, error }) {
+    //     // Code to update the view based on the selected options
+    //     if (data) {
+    //         console.log(`data retured from apex class: `, data);
+    //         // this.jobs = data;
+    //     } else if (error) {
+    //         window.console.log('Error ===> ' + JSON.stringify(error));
+    //     }
+    // }
+
 
 }
